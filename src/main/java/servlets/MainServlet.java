@@ -14,10 +14,16 @@ import java.io.IOException;
 public class MainServlet extends HttpServlet {
     private TaskDAO taskDAO = new TaskDAOimpl();
 
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int taskId = ((Employee) req.getAttribute("user")).getCurrentTask();
+        int taskId = ((Employee) req.getSession().getAttribute("user")).getCurrentTask();
         Task currentTask = null;
         try {
             currentTask = taskDAO.getTask(taskId);

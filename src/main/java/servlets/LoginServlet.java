@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         Employee employee;
         if ((employee = as.auth(login, password))!=null) {
             req.getSession().setAttribute("isAuth", true);
-            req.setAttribute("user", employee);
+            req.getSession().setAttribute("user", employee);
             req.getRequestDispatcher("/main").forward(req, resp);
         } else {
             getServletContext().getRequestDispatcher("/").forward(req, resp);

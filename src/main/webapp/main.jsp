@@ -26,40 +26,40 @@
 </nav>
 
 <main>
+    currentTask
     <article>
-        <h2>Здесь должна выходить тема или название задачи</h2>
-        <h3>ID задачи</h3>
+        <h2><c:out value="${currentTask.taskName}"></c:out></h2>
+        <h3><c:out value="${currentTask.taskID}"></c:out></h3>
 
         <section>
-            <p>здесь должно быть описание задачи: сделать что важное, интересное, полездное, крутое и очень-очень
-                значимое для любимой компании<br>
-                и желательно как можно срокорее!!!
+            <p>
+                <c:out value="${currentTask.description}"></c:out>
             </p>
         </section>
         <table>
             <tr>
                 <td><strong>Постановщик задачи:</strong></td>
-                <td>Здесь ФИО постановщика</td>
+                <td><c:out value="${currentTask.author}"></c:out></td>
                 <td><a href=mailto:"адрес"><img src="<c:url value="/images/mail.png"/>"
                                                 height="50" width="50"/></a></td>
             </tr>
         </table>
-        <p><a href="#" class="buttonclose">Завершить задачу</a></p>
+        <p><a href="<c:url value="/main"/>" class="buttonclose">Завершить задачу</a></p>
     </article>
 
     <aside>
         <table>
             <tr>
                 <td><strong>Статус:</strong></td>
-                <td>сюда вывести статус</td>
+                <td><c:out value="${currentTask.status}"></c:out></td>
             </tr>
             <tr>
                 <td><strong>Старт:</strong></td>
-                <td>сюда дату старта</td>
+                <td><c:out value="${currentTask.workStartDate}"></c:out></td>
             </tr>
             <tr>
                 <td class="dedline"><strong>Дедлайн:</strong></td>
-                <td class="dedline">сюда дату дедлайна</td>
+                <td class="dedline"><c:out value="${currentTask.deadline}"></c:out></td>
             </tr>
         </table>
     </aside>
