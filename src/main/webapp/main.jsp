@@ -6,13 +6,11 @@
 <html>
 <head>
     <title>bagtracker</title>
-
 </head>
 
 <body>
 <header>
     <img src="<c:url value="/images/logo.png"/>" alt="Логотип" height="50" width="70">
-
     <h1>Breakfast tracker</h1>
 </header>
 <nav>
@@ -24,13 +22,10 @@
         <li><a href="#" class="button">Взять задачу</a></li>
     </ul>
 </nav>
-
 <main>
-
     <article>
         <h2><c:out value="${currentTask.taskName}"></c:out></h2>
         <h3> # <c:out value="${currentTask.taskID}"></c:out></h3>
-
         <section>
             <p>
                 <c:out value="${currentTask.description}"></c:out>
@@ -39,15 +34,14 @@
         <table>
             <tr>
                 <td><strong>Постановщик задачи:</strong></td>
-                <td><c:out value="${author.employeePosition}"></c:out> / </td>
+                <td><c:out value="${author.employeePosition}"></c:out> /</td>
                 <td><c:out value="${author.employeeName}"></c:out></td>
                 <td><a href=mailto:<c:out value="${author.eMail}"></c:out>><img src="<c:url value="/images/mail.png"/>"
-                                                height="30" width="30"/></a></td>
+                                                                                height="30" width="30"/></a></td>
             </tr>
         </table>
         <p><a href="<c:url value="/main"/>" class="buttonclose">Завершить задачу</a></p>
     </article>
-
     <aside>
         <table>
             <tr>

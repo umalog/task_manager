@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <img class="logo" src="<c:url value="/images/logo.png"/>" alt="Логотип" height="50" width="50">
+    <img src="<c:url value="/images/logo.png"/>" alt="Логотип" height="50" width="70">
     <h1>Breakfast tracker</h1>
 </header>
 <nav>

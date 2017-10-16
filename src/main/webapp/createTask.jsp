@@ -1,11 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: umalog
-  Date: 16.10.17
-  Time: 20:14
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    <%@include file='style.css' %>
+</style>
 <html>
 <head>
     <title>Title</title>
