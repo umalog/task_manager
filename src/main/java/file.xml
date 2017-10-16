@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<company>
+    <companyName>xmlCorp</companyName>
+    <employeeIDCounter>2</employeeIDCounter>
+    <taskIDCounter>2</taskIDCounter>
+    <workers>
+        <company>xmlCorp</company>
+        <employeeID>1</employeeID>
+        <employeeName>Ivan Ivanovich</employeeName>
+        <employeePosition>Director</employeePosition>
+        <eMail>test@inno.ru</eMail>
+        <password>password</password>
+        <taskInWork>0</taskInWork>
+    </workers>
+    <workers>
+        <company>xmlCorp</company>
+        <employeeID>2</employeeID>
+        <employeeName>Vasya</employeeName>
+        <employeePosition>Window Cleaner</employeePosition>
+        <eMail>work@inno.ru</eMail>
+        <password>password</password>
+        <taskInWork>1</taskInWork>
+    </workers>
+    <allTask>
+        <company>xmlCorp</company>
+        <taskID>2</taskID>
+        <taskName>Бу!</taskName>
+        <description>I need help!</description>
+        <status>Paused</status>
+        <executor>0</executor>
+        <author>2</author>
+        <deadline>2017-11-05</deadline>
+    </allTask>
+    <allTask>
+        <company>xmlCorp</company>
+        <taskID>1</taskID>
+        <taskName>мыть окна</taskName>
+        <description>все окна</description>
+        <status>InWork</status>
+        <executor>2</executor>
+        <author>1</author>
+        <workStartDate>2017-10-15</workStartDate>
+        <deadline>2017-11-10</deadline>
+    </allTask>
+</company>
