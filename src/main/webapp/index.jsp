@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <img src="<c:url value="/images/logo.png"/>" alt="Логотип" height="50" width="60">
+    <img src="<c:url value="/images/logo.png"/>" alt="Логотип" height="50" width="70">
     <h1>Breakfast tracker</h1>
 </header>
 <main>
@@ -24,7 +24,7 @@
             <p>
                 <input type="submit" class="buttonclose" value="Войти">
                 <%--<a href="<c:url value="/auth"/>" class="buttonclose">Войти</a>--%>
-                <%--задумано все же так ^|^--%>
+                <%--a href - передаст логин в параметре--%>
             </p>
         </form>
     </article>

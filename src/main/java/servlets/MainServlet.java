@@ -14,7 +14,6 @@ import java.io.IOException;
 public class MainServlet extends HttpServlet {
     private TaskDAO taskDAO = new TaskDAOimpl();
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
@@ -38,6 +37,3 @@ public class MainServlet extends HttpServlet {
         }
     }
 }
-//        List<Student> students = StudentDAO.getAll();
-//        req.setAttribute("list", students);
-//        req.getRequestDispatcher("/hello.jsp").forward(req, resp);
