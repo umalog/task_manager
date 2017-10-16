@@ -26,10 +26,10 @@
 </nav>
 
 <main>
-    currentTask
+
     <article>
         <h2><c:out value="${currentTask.taskName}"></c:out></h2>
-        <h3><c:out value="${currentTask.taskID}"></c:out></h3>
+        <h3># <c:out value="${currentTask.taskID}"></c:out></h3>
 
         <section>
             <p>

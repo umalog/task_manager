@@ -1,5 +1,7 @@
 package servlets;
 
+import connection.dao.EmployeeDAO;
+import connection.dao.EmployeeDAOimpl;
 import connection.dao.TaskDAO;
 import connection.dao.TaskDAOimpl;
 import pojo.Employee;
@@ -13,6 +15,7 @@ import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
     private TaskDAO taskDAO = new TaskDAOimpl();
+    private EmployeeDAO employeeDAO = new EmployeeDAOimpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,6 +33,14 @@ public class MainServlet extends HttpServlet {
             e.printStackTrace();
         }
         if (currentTask != null) {
+            Employee author = null;
+
+            try {
+                author = employeeDAO.getEmployeeById(currentTask.getAuthor());
+            } catch (EmployeeDAOimpl.EmployeeDAOException e) {
+                e.printStackTrace();
+            }
+            req.setAttribute("author", author);
             req.setAttribute("currentTask", currentTask);
             req.getRequestDispatcher("/main.jsp").forward(req, resp);
         } else {
