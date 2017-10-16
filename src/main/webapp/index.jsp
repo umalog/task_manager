@@ -21,11 +21,7 @@
                 <input type="text" class="login" name="login"></p>
             <p>Пароль<br>
                 <input class="login" type="password" name="password"></p>
-            <p>
-                <input type="submit" class="buttonclose" value="Войти">
-                <%--<a href="<c:url value="/auth"/>" class="buttonclose">Войти</a>--%>
-                <%--a href - передаст логин в параметре--%>
-            </p>
+            <p><input type="submit" class="buttonclose" value="Войти"></p>
         </form>
     </article>
 </main>
