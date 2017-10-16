@@ -29,7 +29,7 @@
 
     <article>
         <h2><c:out value="${currentTask.taskName}"></c:out></h2>
-        <h3># <c:out value="${currentTask.taskID}"></c:out></h3>
+        <h3> # <c:out value="${currentTask.taskID}"></c:out></h3>
 
         <section>
             <p>
@@ -39,9 +39,10 @@
         <table>
             <tr>
                 <td><strong>Постановщик задачи:</strong></td>
-                <td><c:out value="${currentTask.author}"></c:out></td>
-                <td><a href=mailto:"адрес"><img src="<c:url value="/images/mail.png"/>"
-                                                height="50" width="50"/></a></td>
+                <td><c:out value="${author.employeePosition}"></c:out> / </td>
+                <td><c:out value="${author.employeeName}"></c:out></td>
+                <td><a href=mailto:<c:out value="${author.eMail}"></c:out>><img src="<c:url value="/images/mail.png"/>"
+                                                height="30" width="30"/></a></td>
             </tr>
         </table>
         <p><a href="<c:url value="/main"/>" class="buttonclose">Завершить задачу</a></p>

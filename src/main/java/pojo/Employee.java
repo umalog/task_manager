@@ -16,6 +16,11 @@ public class Employee {
     String employeeName;
     @XmlElement(required = true)
     String employeePosition;
+
+    public String geteMail() {
+        return eMail;
+    }
+
     @XmlElement(required = true)
     String eMail;
     @XmlElement(required = true)

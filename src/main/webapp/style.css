@@ -2,16 +2,32 @@
     box-sizing: border-box;
 }
 
+h1 {
+    font-size: 42px
+}
+
+.logo {
+    margin-left: 920px;
+}
+
 body {
     background-color: rgba(255, 255, 255, 0);
     font: 16px/1.42857 "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 0;
+    overflow: auto;
 }
+
 header {
     background-color: #373737;
     color: #fff;
-    height: 160px;
+    height: 200px;
     padding: 50px 50px;
+    overflow: hidden;
+}
+
+input {
+    background-color: white;
+    font-size: 16px
 }
 
 nav {
@@ -19,11 +35,14 @@ nav {
     border: 1px solid #ddd;
     margin-bottom: 30px;
     height: 80px;
+    overflow: hidden;
 }
 
 nav ul li {
     float: left;
-    margin-right: 10px; list-style: none
+    margin-right: 10px;
+    list-style: none;
+    overflow: hidden;
 }
 
 a.button {
@@ -38,17 +57,38 @@ a.button {
     border-radius: 2px;
     transition: 0.2s;
 }
-a.button:hover { background: #FF8C00; }
-a.button:active { background: white;  color: #FF4500 }
-h2 {font-size: 28px; margin-bottom: -10px; color: #373737}
-h3 {font-size: 16px; color: #373737}
-p {color: #373737}
+
+a.button:hover {
+    background: #FF8C00;
+}
+
+a.button:active {
+    background: white;
+    color: #FF4500
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: -10px;
+    color: #373737
+}
+
+h3 {
+    font-size: 16px;
+    color: #373737
+}
+
+p {
+    color: #373737
+}
+
 main {
     padding: 10px 20px;
-    margin: 0 auto;
     width: 1170px;
     display: block;
+    overflow: hidden;
 }
+
 .buttonclose {
     display: inline-block;
     color: #FFA500;
@@ -61,15 +101,21 @@ main {
     border-radius: 2px;
     transition: 0.2s;
 }
-.buttonclose:hover { background: #FF4500; border: 2px solid; color: white }
+
+.buttonclose:hover {
+    background: #FF4500;
+    border: 2px solid;
+    color: white
+}
 
 article {
     float: left;
-    margin-bottom: 40px;
-    padding: 0 25px;
+    margin-bottom: 30px;
+    padding: 0px 25px;
     width: 70%;
     overflow: hidden;
 }
+
 section {
     fbackground-color: #eee;
     border: 2px solid #ccc;
@@ -78,10 +124,19 @@ section {
     width: 100%;
     display: block;
     overflow: hidden;
-    position: relative;
+    position: static;
 }
-table {margin-top: 14px }
-td {padding-top: 15px; padding-right: 5px;color: #4169E1;  }
+
+table {
+    margin-top: 14px
+}
+
+td {
+    padding-top: 15px;
+    padding-right: 5px;
+    color: #4169E1;
+}
+
 aside {
 
     float: left;
@@ -91,7 +146,10 @@ aside {
     overflow: hidden;
     position: relative;
 }
-.dedline {color: #FF4500}
+
+.dedline {
+    color: #FF4500
+}
 
 footer {
     font-size: 12px;
@@ -100,4 +158,11 @@ footer {
     color: #373737;
     padding: 20px 50px;
 }
-.login {background: #FFA500; border: 1px solid #ccc; padding: 8px 14px; font-size: 16px; color: white }
+
+.login {
+    background: #FFA500;
+    border: 1px solid #ccc;
+    padding: 8px 14px;
+    font-size: 16px;
+    color: white
+}
