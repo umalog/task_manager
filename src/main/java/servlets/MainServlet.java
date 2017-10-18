@@ -19,12 +19,16 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        doIt(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        doIt(req,resp);
+    }
+
+    private void doIt(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         int taskId = ((Employee) req.getSession().getAttribute("user")).getCurrentTask();
         Task currentTask = null;
         try {
@@ -34,7 +38,6 @@ public class MainServlet extends HttpServlet {
         }
         if (currentTask != null) {
             Employee author = null;
-
             try {
                 author = employeeDAO.getEmployeeById(currentTask.getAuthor());
             } catch (EmployeeDAOimpl.EmployeeDAOException e) {

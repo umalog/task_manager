@@ -22,7 +22,7 @@ public class CompanyDAOimpl implements CompanyDAO {
 
     static {
         manager = ConnectionManagerPostgreSQL.getInstance();
-        //PropertyConfigurator
+
     }
 
 

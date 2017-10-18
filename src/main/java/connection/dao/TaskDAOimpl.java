@@ -24,9 +24,65 @@ public class TaskDAOimpl implements TaskDAO {
     public Set<Task> getAllTaskOfCompany(String name) throws TaskDAOException {
         Set<Task> tasks = new HashSet<>();
         try {
-            PreparedStatement statement = manager.getConnection().prepareStatement(
-                    ("SELECT * FROM umalog.public.task WHERE company = ?"));
+            PreparedStatement statement = manager.getConnection().prepareStatement
+                    ("SELECT * FROM umalog.public.task WHERE company = ?");
             statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                if (resultSet.getDate("close_date") != null) {
+                    tasks.add(new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("start_date").toLocalDate(),
+                            resultSet.getDate("close_date").toLocalDate(),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    ));
+                } else if (resultSet.getDate("start_date") != null) {
+                    tasks.add(new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("start_date").toLocalDate(),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    ));
+                }else{
+                    tasks.add(new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    ));
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new TaskDAOException();
+        }
+        return tasks;
+    }
+
+    @Override
+    public Set<Task> getMyClosedTasks(int id) throws TaskDAOException {
+        Set<Task> tasks = new HashSet<>();
+        try {
+            PreparedStatement statement = manager.getConnection().prepareStatement
+                    ("SELECT * FROM task WHERE executor = ? AND status = ?");
+            statement.setInt(1, id);
+            statement.setString(2, "Closed");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Task task = new Task(
@@ -41,6 +97,61 @@ public class TaskDAOimpl implements TaskDAO {
                         TaskStatus.valueOf(resultSet.getString("status")),
                         resultSet.getString("company"));
                 tasks.add(task);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new TaskDAOException();
+        }
+        return tasks;
+    }
+
+    @Override
+    public Set<Task> getMyAssignedTasks(int id) throws TaskDAOException {
+        Set<Task> tasks = new HashSet<>();
+        try {
+            PreparedStatement statement = manager.getConnection().prepareStatement
+                    ("SELECT * FROM task WHERE author = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                if (resultSet.getDate("close_date") != null) {
+                    tasks.add(new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("start_date").toLocalDate(),
+                            resultSet.getDate("close_date").toLocalDate(),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    ));
+                } else if (resultSet.getDate("start_date") != null) {
+                    tasks.add(new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("start_date").toLocalDate(),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    ));
+                }else{
+                    tasks.add(new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    ));
+                }
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -165,4 +276,5 @@ public class TaskDAOimpl implements TaskDAO {
         }
         return null;
     }
+
 }

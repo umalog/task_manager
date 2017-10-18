@@ -16,7 +16,7 @@
 <nav>
     <ul class="button-group">
         <li><a href="#" class="button">Моя текущая задача</a></li>
-        <li><a href="#" class="button">Выполненные задачи</a></li>
+        <li><a href="<c:url value="/completed"/>" class="button">Выполненные задачи</a></li>
         <li><a href="#" class="button">Порученные задачи</a></li>
         <li><a href="#" class="button">Поручить задачу</a></li>
         <li><a href="#" class="button">Взять задачу</a></li>

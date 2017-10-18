@@ -16,7 +16,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Boolean isAuth = (Boolean) ((HttpServletRequest) request).getSession().getAttribute("isAuth");
         if (isAuth) {
-            chain.doFilter(request, response);
+            chain.doFilter(request, response); // пропустить
         } else {
             ((HttpServletResponse) response).sendRedirect("/team");
         }

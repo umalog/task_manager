@@ -18,4 +18,8 @@ public interface TaskDAO {
 
     Task getTask(int id) throws TaskDAOException;
 
+    Set<Task> getMyClosedTasks(int id) throws TaskDAOException;
+
+    Set<Task> getMyAssignedTasks(int id) throws TaskDAOException;
+
 }
