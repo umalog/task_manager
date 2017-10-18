@@ -1,7 +1,11 @@
 package pojo;
 
 
-import connection.dao.*;
+import connection.dao.CompanyDAO;
+import connection.dao.CompanyDAOimpl;
+import connection.dao.EmployeeDAOimpl;
+import connection.dao.TaskDAOimpl;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -11,6 +15,10 @@ import java.io.File;
 
 public class XMLFactory {
     private static CompanyDAO companyDAO= new CompanyDAOimpl();
+    private static final Logger logger = Logger.getLogger(XMLFactory.class);
+    static {
+        //PropertyConfigurator.configure("/log4j.properties");
+    }
 
     public static void main(String[] args) throws EmployeeDAOimpl.EmployeeDAOException, TaskDAOimpl.TaskDAOException, CompanyDAOimpl.CompanyDAOException {
 
@@ -18,13 +26,14 @@ public class XMLFactory {
 //        companyDAO.deleteAll();
 
         /* создание обьектов, сохранение в XML */
-//        Company xmlCorp = new Company("xmlCorp");
-//        Employee director = new Employee("Ivan Ivanovich", "Director", "test@inno.ru", xmlCorp, "password");
-//        Employee windowCleaner = new Employee("Vasya", "Window Cleaner", "work@inno.ru", xmlCorp, "password");
-//        Task bag = new Task("мыть окна", "все окна", windowCleaner, director, java.time.LocalDate.parse("2017-11-10"), xmlCorp);
-//        Task alert = new Task("Бу!","I need help!",windowCleaner, java.time.LocalDate.parse("2017-11-05"),xmlCorp);
-//        saveCompany(xmlCorp);
-
+        Company xmlCorp = new Company("xmlCorp");
+        Employee director = new Employee("Ivan Ivanovich", "Director", "test@inno.ru", xmlCorp, "password");
+        Employee windowCleaner = new Employee("Vasya", "Window Cleaner", "work@inno.ru", xmlCorp, "password");
+        Task bag = new Task("мыть окна", "все окна", windowCleaner, director, java.time.LocalDate.parse("2017-11-10"), xmlCorp);
+        Task alert = new Task("Бу!","I need help!",windowCleaner, java.time.LocalDate.parse("2017-11-05"),xmlCorp);
+        saveCompany(xmlCorp);
+        logger.info(xmlCorp+" marshalling successful");
+//
         /* из XML в SQL */
 //        Company xmlCorp = loadCompany();
 //        companyDAO.insertCompany(xmlCorp);
@@ -53,7 +62,7 @@ public class XMLFactory {
             jaxbMarshaller.marshal(company, System.out);
 
         } catch (JAXBException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
@@ -67,7 +76,7 @@ public class XMLFactory {
             System.out.println(company);
             return company;
         } catch (JAXBException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return null;
     }

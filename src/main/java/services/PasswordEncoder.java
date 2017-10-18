@@ -1,10 +1,16 @@
 package services;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordEncoder {
-
+    private static final Logger logger = Logger.getLogger(PasswordEncoder.class);
+    static {
+        PropertyConfigurator.configure("/log4j.properties");
+    }
 
     public static String encode(String password) {
         String result = md5(password) + "qweqwe";
@@ -20,7 +26,7 @@ public class PasswordEncoder {
             byte[] array = md.digest(password.getBytes());
             result = new String(array);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return result;
     }

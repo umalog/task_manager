@@ -4,6 +4,7 @@ import connection.dao.EmployeeDAO;
 import connection.dao.EmployeeDAOimpl;
 import connection.dao.TaskDAO;
 import connection.dao.TaskDAOimpl;
+import org.apache.log4j.Logger;
 import pojo.Employee;
 import pojo.Task;
 
@@ -16,6 +17,8 @@ import java.io.IOException;
 public class MainServlet extends HttpServlet {
     private TaskDAO taskDAO = new TaskDAOimpl();
     private EmployeeDAO employeeDAO = new EmployeeDAOimpl();
+    private static final Logger logger = Logger.getLogger(MainServlet.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,14 +37,14 @@ public class MainServlet extends HttpServlet {
         try {
             currentTask = taskDAO.getTask(taskId);
         } catch (TaskDAO.TaskDAOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         if (currentTask != null) {
             Employee author = null;
             try {
                 author = employeeDAO.getEmployeeById(currentTask.getAuthor());
             } catch (EmployeeDAOimpl.EmployeeDAOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
             req.setAttribute("author", author);
             req.setAttribute("currentTask", currentTask);

@@ -3,6 +3,7 @@ package connection.dao;
 
 import connection.ConnectionManager;
 import connection.ConnectionManagerPostgreSQL;
+import org.apache.log4j.Logger;
 import pojo.Company;
 import pojo.Employee;
 import pojo.Task;
@@ -19,10 +20,10 @@ public class CompanyDAOimpl implements CompanyDAO {
 
 
     private static ConnectionManager manager;
+    private static final Logger logger = Logger.getLogger(CompanyDAOimpl.class);
 
     static {
         manager = ConnectionManagerPostgreSQL.getInstance();
-
     }
 
 
@@ -38,7 +39,7 @@ public class CompanyDAOimpl implements CompanyDAO {
             com = parseFromResultSet(resultSet);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new CompanyDAOException();
         }
         return com;
@@ -98,7 +99,7 @@ public class CompanyDAOimpl implements CompanyDAO {
             manager.getConnection().createStatement().execute
                     ("DELETE FROM umalog.public.companies");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new CompanyDAOException();
         }
     }
@@ -116,7 +117,7 @@ public class CompanyDAOimpl implements CompanyDAO {
             new EmployeeDAOimpl().insertAllEmployee(company.getWorkers());
             new TaskDAOimpl().insertAll(company.getAllTask());
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new CompanyDAOException();
         }
 

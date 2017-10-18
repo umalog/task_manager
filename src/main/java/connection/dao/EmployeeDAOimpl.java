@@ -2,6 +2,7 @@ package connection.dao;
 
 import connection.ConnectionManager;
 import connection.ConnectionManagerPostgreSQL;
+import org.apache.log4j.Logger;
 import pojo.Employee;
 
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ import static services.PasswordEncoder.encode;
 public class EmployeeDAOimpl implements EmployeeDAO {
 
     private static ConnectionManager manager;
-
+    private static final Logger logger = Logger.getLogger(EmployeeDAOimpl.class);
     static {
         manager = ConnectionManagerPostgreSQL.getInstance();
     }
@@ -43,7 +44,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
             }
             return emp;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new EmployeeDAOException();
         }
     }
@@ -68,7 +69,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
             }
             statement.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new EmployeeDAOException();
         }
     }
@@ -90,7 +91,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
                 statement.setString(7, encode(employee.getPassword()));
                 statement.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
                 throw new EmployeeDAOException();
             }
         }
@@ -115,7 +116,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new EmployeeDAOException();
         }
         return employee;
@@ -127,7 +128,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
         try {
             manager.getConnection().createStatement().execute("DELETE FROM umalog.public.employee");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new EmployeeDAOException();
         }
     }
@@ -153,7 +154,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new EmployeeDAOException();
         }
         return employee;

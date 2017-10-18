@@ -14,13 +14,15 @@ public class LoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        Boolean isAuth = (Boolean) ((HttpServletRequest) request).getSession().getAttribute("isAuth");
-        if (isAuth) {
+        if (((HttpServletRequest) request).getSession().getAttribute("isAuth") != null &&
+                (Boolean) ((HttpServletRequest) request).getSession().getAttribute("isAuth")) {
             chain.doFilter(request, response); // пропустить
         } else {
             ((HttpServletResponse) response).sendRedirect("/team");
         }
-    }
+    }  //может быть ошибочно!
+
+
 
     @Override
     public void destroy() {

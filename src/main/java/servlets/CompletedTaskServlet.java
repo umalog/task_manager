@@ -2,6 +2,7 @@ package servlets;
 
 import connection.dao.TaskDAO;
 import connection.dao.TaskDAOimpl;
+import org.apache.log4j.Logger;
 import pojo.Employee;
 import pojo.Task;
 
@@ -14,6 +15,10 @@ import java.util.Set;
 
 public class CompletedTaskServlet extends HttpServlet {
     private TaskDAO taskDAO = new TaskDAOimpl();
+    private static final Logger logger = Logger.getLogger(CompletedTaskServlet.class);
+    static {
+      //  PropertyConfigurator.configure("/log4j.properties");
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +27,7 @@ public class CompletedTaskServlet extends HttpServlet {
             Set<Task> myClosedTasks = taskDAO.getMyClosedTasks(employeeID);
             req.setAttribute("myClosedTasks", myClosedTasks);
         } catch (TaskDAO.TaskDAOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         req.getRequestDispatcher("/completedTasks.jsp").forward(req, resp);
     }

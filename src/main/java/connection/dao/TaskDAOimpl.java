@@ -3,6 +3,7 @@ package connection.dao;
 
 import connection.ConnectionManager;
 import connection.ConnectionManagerPostgreSQL;
+import org.apache.log4j.Logger;
 import pojo.Task;
 import pojo.TaskStatus;
 
@@ -16,7 +17,7 @@ import java.util.Set;
 public class TaskDAOimpl implements TaskDAO {
 
     private static ConnectionManager manager;
-
+    private static final Logger logger = Logger.getLogger(TaskDAOimpl.class);
     static {
         manager = ConnectionManagerPostgreSQL.getInstance();
     }
@@ -69,7 +70,7 @@ public class TaskDAOimpl implements TaskDAO {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new TaskDAOException();
         }
         return tasks;
@@ -99,7 +100,7 @@ public class TaskDAOimpl implements TaskDAO {
                 tasks.add(task);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new TaskDAOException();
         }
         return tasks;
@@ -154,7 +155,7 @@ public class TaskDAOimpl implements TaskDAO {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new TaskDAOException();
         }
         return tasks;
@@ -185,7 +186,7 @@ public class TaskDAOimpl implements TaskDAO {
             }
             statement.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new TaskDAOException();
         }
     }
@@ -208,7 +209,7 @@ public class TaskDAOimpl implements TaskDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new TaskDAOException();
         }
     }
@@ -218,7 +219,7 @@ public class TaskDAOimpl implements TaskDAO {
             manager.getConnection().createStatement().execute("DELETE FROM umalog.public.task");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new TaskDAOException();
         }
     }
@@ -271,7 +272,7 @@ public class TaskDAOimpl implements TaskDAO {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new TaskDAOException();
         }
         return null;
