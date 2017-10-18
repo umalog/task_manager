@@ -11,16 +11,15 @@ import java.sql.SQLException;
 
 
 public class ConnectionPoolPostgreSql implements ConnectionManager {
-    private Connection conn;
 
     private static final Logger logger = Logger.getLogger(ConnectionPoolPostgreSql.class);
 
+    /* инициализируется загрузчиком класса */
     private static PoolingDataSource<PoolableConnection> pds;
 
     static {
-
         try {
-            Class.forName("org.h2.Driver");
+            Class.forName("org.postgresql.Driver");
             ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(
                     "jdbc:postgresql://localhost:5432/umalog", "postgres", "");
             PoolableConnectionFactory poolableConnectionFactory = new PoolableConnectionFactory(
@@ -33,6 +32,7 @@ public class ConnectionPoolPostgreSql implements ConnectionManager {
         }
     }
 
+    @Deprecated
     private static DataSource setupDataSource() throws ClassNotFoundException {
 
         Class.forName("org.h2.Driver");

@@ -16,9 +16,9 @@ import java.io.File;
 public class XMLFactory {
     private static CompanyDAO companyDAO= new CompanyDAOimpl();
     private static final Logger logger = Logger.getLogger(XMLFactory.class);
-    static {
-        //PropertyConfigurator.configure("/log4j.properties");
-    }
+//    static {
+//        PropertyConfigurator.configure("/log4j.properties");
+//    }
 
     public static void main(String[] args) throws EmployeeDAOimpl.EmployeeDAOException, TaskDAOimpl.TaskDAOException, CompanyDAOimpl.CompanyDAOException {
 

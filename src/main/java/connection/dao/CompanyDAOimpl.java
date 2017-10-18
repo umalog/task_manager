@@ -2,7 +2,7 @@ package connection.dao;
 
 
 import connection.ConnectionManager;
-import connection.ConnectionManagerPostgreSQL;
+import connection.ConnectionPoolPostgreSql;
 import org.apache.log4j.Logger;
 import pojo.Company;
 import pojo.Employee;
@@ -23,7 +23,8 @@ public class CompanyDAOimpl implements CompanyDAO {
     private static final Logger logger = Logger.getLogger(CompanyDAOimpl.class);
 
     static {
-        manager = ConnectionManagerPostgreSQL.getInstance();
+        //manager = ConnectionManagerPostgreSQL.getInstance();
+        manager = new ConnectionPoolPostgreSql();
     }
 
 

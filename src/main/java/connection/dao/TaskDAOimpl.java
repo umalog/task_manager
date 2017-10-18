@@ -2,7 +2,7 @@ package connection.dao;
 
 
 import connection.ConnectionManager;
-import connection.ConnectionManagerPostgreSQL;
+import connection.ConnectionPoolPostgreSql;
 import org.apache.log4j.Logger;
 import pojo.Task;
 import pojo.TaskStatus;
@@ -19,7 +19,8 @@ public class TaskDAOimpl implements TaskDAO {
     private static ConnectionManager manager;
     private static final Logger logger = Logger.getLogger(TaskDAOimpl.class);
     static {
-        manager = ConnectionManagerPostgreSQL.getInstance();
+//        manager = ConnectionManagerPostgreSQL.getInstance();
+        manager = new ConnectionPoolPostgreSql();
     }
 
     public Set<Task> getAllTaskOfCompany(String name) throws TaskDAOException {

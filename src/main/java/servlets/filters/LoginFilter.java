@@ -16,6 +16,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (((HttpServletRequest) request).getSession().getAttribute("isAuth") != null &&
                 (Boolean) ((HttpServletRequest) request).getSession().getAttribute("isAuth")) {
+            ((HttpServletRequest) request).getSession().setMaxInactiveInterval(120); //сессия умрет от 2минут бездействия
             chain.doFilter(request, response); // пропустить
         } else {
             ((HttpServletResponse) response).sendRedirect("/team");
