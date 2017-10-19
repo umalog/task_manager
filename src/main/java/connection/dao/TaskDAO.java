@@ -22,4 +22,6 @@ public interface TaskDAO {
 
     Set<Task> getMyAssignedTasks(int id) throws TaskDAOException;
 
+    public void closeTask(int taskId) throws TaskDAOException;
+
 }

@@ -160,4 +160,18 @@ public class EmployeeDAOimpl implements EmployeeDAO {
         }
         return employee;
     }
+
+    @Override
+    public void closeTask(Integer id) throws EmployeeDAOException {
+        try {
+            PreparedStatement statement = manager.getConnection().prepareStatement
+                    ("UPDATE umalog.public.employee SET current_task = ? WHERE id = ?");
+            statement.setInt(1, 0);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            throw new EmployeeDAOException();
+        }
+    }
 }

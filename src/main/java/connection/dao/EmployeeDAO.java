@@ -21,4 +21,6 @@ public interface EmployeeDAO {
     void deleteAllEmployee() throws EmployeeDAOException;
 
     Employee findEmployee(String eMail, String password)throws EmployeeDAOException;
+
+    void closeTask(Integer id)throws EmployeeDAOException;
 }

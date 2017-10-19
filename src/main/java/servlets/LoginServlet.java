@@ -16,6 +16,12 @@ public class LoginServlet extends HttpServlet {
     private static AuthorizationService as = new AuthorizationServiceImpl();
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("/team");
+        logger.info("Что-то пошло не так! \"LoginServlet.doGet()\"");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
@@ -24,11 +30,12 @@ public class LoginServlet extends HttpServlet {
         if ((employee = as.auth(login, password))!=null) {
             logger.info(login+" – access Granted");
             req.getSession().setAttribute("isAuth", true);
-            req.getSession().setAttribute("user", employee);
-            req.getRequestDispatcher("/main").forward(req, resp);
+            int x = employee.getEmployeeID();
+            req.getSession().setAttribute("userID", x);
+            resp.sendRedirect("/team/main");
         } else {
 
-            getServletContext().getRequestDispatcher("/").forward(req, resp);
+            resp.sendRedirect("/team");
         }
     }
 }
