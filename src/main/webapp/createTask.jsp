@@ -18,7 +18,7 @@
         <li><a href="/team/main" class="button">Моя текущая задача</a></li>
         <li><a href="/team/completed" class="button">Выполненные задачи</a></li>
         <li><a href="/team/assigned" class="button">Порученные задачи</a></li>
-        <li><a href="/team/" class="button">Поручить задачу</a></li>
+        <li><a href="/team/create" class="button">Поручить задачу</a></li>
         <li><a href="/team/" class="button">Взять задачу</a></li>
     </ul>
 </nav>

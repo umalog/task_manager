@@ -18,7 +18,7 @@
         <li><a href="/team/main" class="button">Моя текущая задача</a></li>
         <li><a href="/team/completed" class="button">Выполненные задачи</a></li>
         <li><a href="/team/assigned" class="button">Порученные задачи</a></li>
-        <li><a href="/team/" class="button">Поручить задачу</a></li>
+        <li><a href="/team/create" class="button">Поручить задачу</a></li>
         <li><a href="/team/" class="button">Взять задачу</a></li>
     </ul>
 </nav>
@@ -35,18 +35,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>номер ID</td>
-                <td>название задачи</td>
-                <td>ФИО исполнителя</td>
-                <td>Статус задачи</td>
-            </tr>
-            <tr>
-                <td>номер ID</td>
-                <td>название задачи</td>
-                <td>ФИО исполнителя</td>
-                <td>Статус задачи</td>
-            </tr>
+            <c:forEach items="${myAssignedTasks}" var="task">
+                <tr>
+                    <td><c:out value="${task.taskID}"/></td>
+                    <td><c:out value="${task.taskName}"/></td>
+                    <td><c:out value="${task.executor}"/></td>
+                    <td><c:out value="${task.status}"/></td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
     </article>

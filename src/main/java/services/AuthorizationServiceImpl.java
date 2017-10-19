@@ -8,9 +8,7 @@ import pojo.Employee;
 public class AuthorizationServiceImpl implements AuthorizationService {
     private static EmployeeDAO employeeDAO = new EmployeeDAOimpl();
     private static final Logger logger = Logger.getLogger(AuthorizationServiceImpl.class);
-//    static {
-//         PropertyConfigurator.configure("/log4j.properties");
-//    }
+
 
     @Override
     public Employee auth(String eMail, String password) {
