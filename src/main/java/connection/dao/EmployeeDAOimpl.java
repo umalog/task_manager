@@ -51,6 +51,34 @@ public class EmployeeDAOimpl implements EmployeeDAO {
     }
 
     @Override
+    public Set<Employee> getFreeEmployers() throws EmployeeDAOException {
+        Set<Employee> emp = new HashSet<>();
+        try {
+            PreparedStatement statement = manager.getConnection().prepareStatement("SELECT * FROM umalog.public.employee WHERE current_task = ?");
+            statement.setInt(1, 0);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                emp.add(
+                        new Employee(
+                                resultSet.getInt("id"),
+                                resultSet.getString("full_name"),
+                                resultSet.getString("position"),
+                                resultSet.getString("e_mail"),
+                                resultSet.getInt("current_task"),
+                                resultSet.getString("company"),
+                                resultSet.getString("password")
+                        )
+                );
+            }
+            return emp;
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            throw new EmployeeDAOException();
+        }
+    }
+
+    @Override
     public void insertAllEmployee(Set<Employee> emp) throws EmployeeDAOException {
         try {
             PreparedStatement statement = manager.getConnection().prepareStatement(

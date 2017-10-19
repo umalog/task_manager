@@ -12,6 +12,9 @@ public interface EmployeeDAO {
 
     Set<Employee> getAllEmployee(String companyName) throws EmployeeDAOimpl.EmployeeDAOException;
 
+    Set<Employee> getFreeEmployers() throws EmployeeDAOimpl.EmployeeDAOException;
+
+
     void insertAllEmployee(Set<Employee> emp) throws EmployeeDAOimpl.EmployeeDAOException;
 
     void insertEmployee(Employee employee) throws EmployeeDAOimpl.EmployeeDAOException;
