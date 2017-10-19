@@ -1,7 +1,5 @@
 package servlets;
 
-import connection.dao.TaskDAO;
-import connection.dao.TaskDAOimpl;
 import org.apache.log4j.Logger;
 import pojo.Task;
 import services.CompletedTaskService;
@@ -15,7 +13,6 @@ import java.util.Set;
 
 public class CompletedTaskServlet extends HttpServlet {
     CompletedTaskService completedTS = new CompletedTaskService();
-    private TaskDAO taskDAO = new TaskDAOimpl();
     private static final Logger logger = Logger.getLogger(CompletedTaskServlet.class);
 
 
@@ -24,7 +21,8 @@ public class CompletedTaskServlet extends HttpServlet {
         if (req.getSession().getAttribute("userID") != null) {
             int userID = (int) req.getSession().getAttribute("userID");
             Set<Task> myClosedTasks = completedTS.getMyClosedTasks(userID);
-            //обработать:  myClosedTasks==null
+
+            logger.info("не забыть обработать:  myClosedTasks==null в CompletedTaskServlet");
             req.setAttribute("myClosedTasks", myClosedTasks);
 
             req.getRequestDispatcher("/completedTasks.jsp").forward(req, resp);

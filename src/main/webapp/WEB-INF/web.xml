@@ -43,5 +43,14 @@
         <url-pattern>/completed</url-pattern>
     </servlet-mapping>
 
+    AssignedTaskServlet
+    <servlet>
+        <servlet-name>Assigned</servlet-name>
+        <servlet-class>servlets.AssignedTaskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Assigned</servlet-name>
+        <url-pattern>/assigned</url-pattern>
+    </servlet-mapping>
 
 </web-app>
