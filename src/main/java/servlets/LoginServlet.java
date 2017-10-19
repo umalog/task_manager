@@ -1,5 +1,6 @@
 package servlets;
 
+import org.apache.log4j.Logger;
 import pojo.Employee;
 import services.AuthorizationService;
 import services.AuthorizationServiceImpl;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(LoginServlet.class);
     private static AuthorizationService as = new AuthorizationServiceImpl();
 
     @Override
@@ -20,10 +22,12 @@ public class LoginServlet extends HttpServlet {
         /* AuthorizationService */
         Employee employee;
         if ((employee = as.auth(login, password))!=null) {
+            logger.info(login+" – access Granted");
             req.getSession().setAttribute("isAuth", true);
             req.getSession().setAttribute("user", employee);
             req.getRequestDispatcher("/main").forward(req, resp);
         } else {
+
             getServletContext().getRequestDispatcher("/").forward(req, resp);
         }
     }

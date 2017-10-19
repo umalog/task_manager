@@ -16,7 +16,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     public Employee auth(String eMail, String password) {
         if (eMail == null || password == null) return null;
         try {
-            logger.info(eMail+" – access Granted");
             return employeeDAO.findEmployee(eMail, PasswordEncoder.encode(password));
         } catch (EmployeeDAO.EmployeeDAOException e) {
             logger.error(e.getMessage());
