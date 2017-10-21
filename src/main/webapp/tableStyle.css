@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+h1 {font-size: 42px}
+.logo {margin-left: 920px; }
+body {
+    background-color: rgba(255, 255, 255,0);
+    font: 16px/1.42857 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0; overflow: auto;
+}
+header {
+    background-color: #373737;
+    color: #fff;
+    height: 200px;
+    padding: 50px 50px; overflow: hidden;
+}
+
+nav {
+    background-color: #FFA500;
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+    height: 80px; overflow: hidden;
+}
+
+nav ul li {
+    float: left;
+    margin-right: 10px; list-style: none; overflow: hidden;
+}
+
+a.button {
+    display: inline-block;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 24px;
+    outline: none;
+    border: 2px solid;
+    border-radius: 2px;
+    transition: 0.2s;
+}
+a.button:hover { background: #FF8C00; }
+a.button:active { background: white;  color: #FF4500 }
+h2 {font-size: 28px; margin-bottom: -10px; color: #373737}
+h3 {font-size: 16px; color: #373737}
+p {color: #373737}
+main {
+    padding: 10px 20px;
+    width: 1170px;
+    display: block;
+    overflow: hidden;
+}
+
+article {
+    float: left;
+    margin-bottom: 30px;
+    padding: 0 25px;
+    width: 100%;
+    overflow: hidden;
+}
+
+table {
+
+    font-size: 16px;
+    width: 1030px;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 40px;
+    background: #FFEFD5
+}
+td:nth-child(2) {width: 40%;}
+td:nth-child(3) {width: 30%;}
+th {background: #FFEFD5;
+    font-weight: bold;
+    color: #373737;
+    border-bottom: 2px solid #FF8C00;
+    padding: 10px 20px;
+}
+td {
+    color: #373737;
+    padding: 20px 20px;
+
+}
+tr:hover td {color: #6699ff;}
+
+footer {
+    font-size: 12px;
+    background-color: #dcdcdc;
+    clear: both;
+    color: #373737;
+    padding: 20px 50px;
+}
+

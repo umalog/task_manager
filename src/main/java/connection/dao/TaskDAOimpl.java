@@ -7,10 +7,7 @@ import org.apache.log4j.Logger;
 import pojo.Task;
 import pojo.TaskStatus;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,8 +24,8 @@ public class TaskDAOimpl implements TaskDAO {
 
     public Set<Task> getAllTaskOfCompany(String name) throws TaskDAOException {
         Set<Task> tasks = new HashSet<>();
-        try {
-            PreparedStatement statement = manager.getConnection().prepareStatement
+        try (Connection connection = manager.getConnection()){
+            PreparedStatement statement = connection.prepareStatement
                     ("SELECT * FROM umalog.public.task WHERE company = ?");
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
@@ -82,8 +79,8 @@ public class TaskDAOimpl implements TaskDAO {
     @Override
     public Set<Task> getMyClosedTasks(int id) throws TaskDAOException {
         Set<Task> tasks = new HashSet<>();
-        try {
-            PreparedStatement statement = manager.getConnection().prepareStatement
+        try (Connection connection = manager.getConnection()){
+            PreparedStatement statement = connection.prepareStatement
                     ("SELECT * FROM task WHERE executor = ? AND status = ?");
             statement.setInt(1, id);
             statement.setString(2, "Closed");
@@ -112,8 +109,8 @@ public class TaskDAOimpl implements TaskDAO {
     @Override
     public Set<Task> getMyAssignedTasks(int id) throws TaskDAOException {
         Set<Task> tasks = new HashSet<>();
-        try {
-            PreparedStatement statement = manager.getConnection().prepareStatement
+        try (Connection connection = manager.getConnection()){
+            PreparedStatement statement = connection.prepareStatement
                     ("SELECT * FROM task WHERE author = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -165,8 +162,8 @@ public class TaskDAOimpl implements TaskDAO {
     }
 
     public void insertAll(Set<Task> tasks) throws TaskDAOException {
-        try {
-            PreparedStatement statement = manager.getConnection().prepareStatement(
+        try (Connection connection = manager.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO umalog.public.task" +
                             "(task_id, task_name, description, executor, author, start_date, close_date, deadline, status, company)"
                             + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -195,22 +192,23 @@ public class TaskDAOimpl implements TaskDAO {
     }
 
     public void udateTaskStatus(Task task) throws TaskDAOException {
-        try {
+        try (Connection connection = manager.getConnection()){
             if (task.getClosingDate() == null) { //Взять задачу
-                PreparedStatement statement = manager.getConnection().prepareStatement
+                PreparedStatement statement = connection.prepareStatement
                         ("UPDATE umalog.public.task SET executor = ?, start_date = ? WHERE task_id = ?");
                 statement.setInt(1, task.getExecutor());
                 statement.setDate(2, Date.valueOf(task.getWorkStartDate()));
                 statement.setInt(3, task.getTaskID());
                 statement.executeUpdate();
-            } else {
+            }
+//            else {
 //                PreparedStatement statement = manager.getConnection().prepareStatement
 //                        ("UPDATE umalog.public.task SET close_date = ?, status = ? WHERE task_id = ?");
 //                statement.setDate(1, Date.valueOf(task.getClosingDate()));
 //                statement.setString(2, "Closed");
 //                statement.setInt(3, task.getTaskID());
 //                statement.executeUpdate();
-            }
+//            }
 
         } catch (SQLException e) {
             logger.error(e.getMessage());
@@ -219,8 +217,8 @@ public class TaskDAOimpl implements TaskDAO {
     }
 
     public void closeTask(int taskId) throws TaskDAOException {
-        try {
-            PreparedStatement statement = manager.getConnection().prepareStatement
+        try (Connection connection = manager.getConnection()){
+            PreparedStatement statement = connection.prepareStatement
                     ("UPDATE umalog.public.task SET close_date = ?, status = ? WHERE task_id = ?");
             statement.setDate(1, Date.valueOf(LocalDate.now()));
             statement.setString(2, "Closed");
@@ -234,8 +232,8 @@ public class TaskDAOimpl implements TaskDAO {
 
 
     public void deleteAllTask() throws TaskDAOException {
-        try {
-            manager.getConnection().createStatement().execute("DELETE FROM umalog.public.task");
+        try (Connection connection = manager.getConnection()){
+            connection.createStatement().execute("DELETE FROM umalog.public.task");
 
         } catch (SQLException e) {
             logger.error(e.getMessage());
@@ -245,8 +243,8 @@ public class TaskDAOimpl implements TaskDAO {
 
     @Override
     public Task getTask(int id) throws TaskDAOException {
-        try {
-            PreparedStatement statement = manager.getConnection().prepareStatement
+        try (Connection connection = manager.getConnection()){
+            PreparedStatement statement = connection.prepareStatement
                     ("SELECT * FROM task WHERE task_id = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();

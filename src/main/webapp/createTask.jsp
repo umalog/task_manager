@@ -50,7 +50,7 @@
             </td>
             <tr>
                 <td><strong>Старт:</strong></td>
-                <td><input class="date" type="date" id="date" name="date"/></td>
+                <td><input class="date" type="date" id="startDate" name="date"/></td>
             </tr>
             <tr>
                 <td class="dedline"><strong>Дедлайн:</strong></td>

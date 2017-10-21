@@ -9,6 +9,7 @@ import pojo.Employee;
 import pojo.Task;
 import pojo.TaskStatus;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,11 +29,12 @@ public class CompanyDAOimpl implements CompanyDAO {
     }
 
 
-    /* getAll() исправлено на JOIN */
+    /** getAll() реализовано на JOIN, но
+     * можно еще поиграться с connection.setAutoCommit(true) */
     public Company getByName(String name) throws CompanyDAOException, TaskDAOimpl.TaskDAOException, EmployeeDAOimpl.EmployeeDAOException {
         Company com;
-        try {
-            PreparedStatement statement = manager.getConnection().prepareStatement
+        try (Connection connection = manager.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement
                     ("SELECT * FROM companies comp JOIN employee emp ON comp.name = emp.company " +
                             "JOIN task bag ON comp.name = bag.company WHERE name = ?");
             statement.setString(1, name);
@@ -93,11 +95,11 @@ public class CompanyDAOimpl implements CompanyDAO {
 
 
     public void deleteAll() throws CompanyDAOException, EmployeeDAOimpl.EmployeeDAOException, TaskDAOimpl.TaskDAOException {
-        try {
+        try (Connection connection = manager.getConnection()) {
             new TaskDAOimpl().deleteAllTask();
             new EmployeeDAOimpl().deleteAllEmployee();
             //  ON DELETE CASCADE
-            manager.getConnection().createStatement().execute
+            connection.createStatement().execute
                     ("DELETE FROM umalog.public.companies");
         } catch (SQLException e) {
             logger.error(e.getMessage());
@@ -107,8 +109,8 @@ public class CompanyDAOimpl implements CompanyDAO {
 
     /* пароли Set<Employee> шифруются при сохранении в БД */
     public void insertCompany(Company company) throws CompanyDAOException, TaskDAOimpl.TaskDAOException, EmployeeDAOimpl.EmployeeDAOException {
-        try {
-            PreparedStatement statement = manager.getConnection().prepareStatement(
+        try (Connection connection = manager.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO umalog.public.companies" +
                             "(name, employee_count, task_count) VALUES(?, ?, ?)");
             statement.setString(1, company.companyName);
