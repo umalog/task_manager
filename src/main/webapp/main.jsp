@@ -19,7 +19,7 @@
         <li><a href="/team/completed" class="button">Выполненные задачи</a></li>
         <li><a href="/team/assigned" class="button">Порученные задачи</a></li>
         <li><a href="/team/create" class="button">Поручить задачу</a></li>
-        <li><a href="/team/" class="button">Взять задачу</a></li>
+        <li><a href="#" class="button">Взять задачу</a></li>
     </ul>
 </nav>
 <main>
@@ -43,7 +43,6 @@
         <form id="myForm" method="post" action="<c:url value="/main"/>">
             <input type="hidden" name="taskID" value='<c:out value="${currentTask.taskID}"/>'/>
             <p><input type="submit" class="buttonclose" value="Завершить задачу"></p>
-        <%--<p><a href="<c:url value="/main"/>" class="buttonclose">Завершить задачу</a></p>--%>
         </form>
     </article>
 

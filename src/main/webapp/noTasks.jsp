@@ -18,14 +18,14 @@
         <li><a href="/team/completed" class="button">Выполненные задачи</a></li>
         <li><a href="/team/assigned" class="button">Порученные задачи</a></li>
         <li><a href="/team/create" class="button">Поручить задачу</a></li>
-        <li><a href="/team/" class="button">Взять задачу</a></li>
+        <li><a href="/team/take" class="button">Взять задачу</a></li>
     </ul>
 </nav>
 
 <main>
     <article>
         <h2>Нет текущих задач</h2>
-        <p><a href="#" class="buttonclose">Взять свободную задачу</a></p>
+        <p><a href="/team/take" class="buttonclose">Взять свободную задачу</a></p>
     </article>
     <aside>
     </aside>

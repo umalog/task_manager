@@ -1,23 +1,46 @@
 package services;
 
-import connection.dao.EmployeeDAO;
-import connection.dao.EmployeeDAOimpl;
+import connection.dao.*;
 import org.apache.log4j.Logger;
+import pojo.Company;
 import pojo.Employee;
+import pojo.Task;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 public class CreateTaskService {
+    private static CompanyDAO companyDAO = new CompanyDAOimpl();
     private static EmployeeDAO employeeDAO = new EmployeeDAOimpl();
     private static final Logger logger = Logger.getLogger(CreateTaskService.class);
+    private static TaskDAO taskDAO = new TaskDAOimpl();
 
-
-    public Set<Employee> getFreeEmployers(){
+    public Set<Employee> getFreeEmployers() {
         try {
             return employeeDAO.getFreeEmployers();
         } catch (EmployeeDAOimpl.EmployeeDAOException e) {
             logger.error(e.getMessage());
         }
         return null;
+    }
+
+    public void createThisTask(String taskName, String description, int executorID, int authorID, LocalDate deadline) {
+        try {
+            Employee author = employeeDAO.getEmployeeById(authorID);
+            Company company = companyDAO.getByName(author.getCompany());
+            Task task;
+            if (executorID == 0) {
+                task = new Task(taskName, description, author, deadline, company);
+            } else {
+                Employee executor = employeeDAO.getEmployeeById(executorID);
+                task = new Task(taskName, description, executor, author, deadline, company);
+            }
+            taskDAO.insertTask(task);
+            companyDAO.updateCompany(company);
+            employeeDAO.takeTask(task.getTaskID(),executorID);
+
+        } catch (EmployeeDAOimpl.EmployeeDAOException | CompanyDAO.CompanyDAOException | TaskDAOimpl.TaskDAOException e) {
+            logger.error(e.getMessage());
+        }
     }
 }

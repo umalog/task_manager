@@ -19,45 +19,46 @@
         <li><a href="/team/completed" class="button">Выполненные задачи</a></li>
         <li><a href="/team/assigned" class="button">Порученные задачи</a></li>
         <li><a href="/team/create" class="button">Поручить задачу</a></li>
-        <li><a href="/team/" class="button">Взять задачу</a></li>
+        <li><a href="/team/take" class="button">Взять задачу</a></li>
     </ul>
 </nav>
 <main>
-    <article>
-        <form>
+    <form method="post" action="<c:url value="/create"/>">
+        <article>
             <input class="taskname" type="text" name="taskname" placeholder="Введите название задачи"/>
             <textarea class="task" name="task" required rows=4>Описание задачи</textarea>
             <h3>Выбрать исполнителя:
                 <h3>
-                    <p><select class="selcls" multiple>
-                        <option>Сотрудник 1</option>
-                        <option>Сотрудник 2</option>
-                        <option>Сотрудник 3</option>
-                        <option>Сотрудник 4</option>
-                        <option>Сотрудник 5</option>
-                        <option>Сотрудник 6</option>
-                    </select>
-                    <p><a href="#" class="buttonclose">Назначить задачу</a></p>
+                    <p>
+                        <select name="contractor" class="selcls">
+                            <option value="0">Не назначать исполнителя</option>
+                            <c:forEach items="${freeEmployers}" var="worker">
+                                <option value="<c:out value="${worker.employeeID}"/>"><c:out
+                                        value="${worker.employeeName}"/>, <c:out
+                                        value="${worker.employeePosition}"/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                        <%--<p><a href="#" class="buttonclose">Назначить задачу</a></p>--%>
+                    <p><input type="submit" class="buttonclose" value="Назначить задачу"></p>
+
                 </h3>
             </h3>
-        </form>
-    </article>
-    <aside>
-        <table>
-            <tr>
-                <td colspan=2><strong>Сроки исполнения:</strong>
-            </tr>
-            </td>
-            <tr>
-                <td><strong>Старт:</strong></td>
-                <td><input class="date" type="date" id="startDate" name="date"/></td>
-            </tr>
-            <tr>
-                <td class="dedline"><strong>Дедлайн:</strong></td>
-                <td class="dedline"><input class="date" type="date" id="date" name="date"/></td>
-            </tr>
-        </table>
-    </aside>
+
+        </article>
+        <aside>
+            <table>
+                <tr>
+                    <td colspan=2><strong>Сроки исполнения:</strong>
+                </tr>
+                </td>
+                <tr>
+                    <td class="dedline"><strong>Дедлайн:</strong></td>
+                    <td class="dedline"><input class="date" type="date" name="dedline"/></td>
+                </tr>
+            </table>
+        </aside>
+    </form>
 </main>
 
 <footer>

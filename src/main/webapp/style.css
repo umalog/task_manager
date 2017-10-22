@@ -17,12 +17,11 @@ header {
 input {background-color: white; font-size: 16px}
 .date {border: 2px solid #ddd; height: 40px; width: 150px; padding: 5px 5px; font-size: 14px; margin-top: 20px; color: #0000CD; background: #FFFFFF}
 .taskname {border: 2px solid #ddd; height: 40px; width: 700px; padding: 10px 20px; font-size: 18px; margin-top: 20px; color: #373737 }
-.task {border: 2px solid #ddd; height: 200px; width: 700px; padding: 10px 20px; font-size: 18px; margin-top: 20px }
-textarea {font: 16px/1.42857 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #373737}
+.task {border: 2px solid #ddd; padding: 10px 20px; font-size: 18px; margin-top: 20px;  height: 200px; width: 700px; }
+textarea {resize: none; font: 16px/1.42857 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #373737; }
 
-
-.selcls {border: 1px solid #ddd; height: 60px; width: 400px; padding: 10px 20px; font-size: 14px; }
-
+.selcls {border: 1px solid #ddd; height: 60px; width: 400px; padding: 5px 20px;  }
+option {font-size: 14px; color:#373737; margin: 5px}
 
 nav {
     background-color: #FFA500;

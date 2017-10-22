@@ -28,6 +28,22 @@ public class Company {
         allTask = new HashSet<>();
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void setEmployeeIDCounter(int employeeIDCounter) {
+        this.employeeIDCounter = employeeIDCounter;
+    }
+
+    public void setTaskIDCounter(int taskIDCounter) {
+        this.taskIDCounter = taskIDCounter;
+    }
+
     /* конструктор для БД */
     public Company(String companyName, int employeeIDCounter, int taskIDCounter, Set<Employee> workers, Set<Task> allTask) {
         this.companyName = companyName;
@@ -54,6 +70,13 @@ public class Company {
         taskIDCounter = taskIDCounter + 1;
         return taskIDCounter;
     }
+    public int getCurrentEmployeeIDCounter() {
+        return employeeIDCounter;
+    }
+
+    public int getCurrentTaskIDCounter() {
+        return taskIDCounter;
+    }
 
     public Set<Employee> getWorkers() {
         return workers;
@@ -68,15 +91,5 @@ public class Company {
             if (e.employeeID == id) return e;
         }
         return null;
-    }
-
-    @Override
-    public String toString() {
-        return "Company{" +
-                "employeeIDCounter=" + employeeIDCounter +
-                ", taskIDCounter=" + taskIDCounter +
-                ", workers=" + workers.size() +
-                ", allTask=" + allTask.size() +
-                '}';
     }
 }

@@ -26,13 +26,12 @@ public class XMLFactory {
 //        companyDAO.deleteAll();
 
         /* создание обьектов, сохранение в XML */
-        Company xmlCorp = new Company("xmlCorp");
-        Employee director = new Employee("Ivan Ivanovich", "Director", "test@inno.ru", xmlCorp, "password");
-        Employee windowCleaner = new Employee("Vasya", "Window Cleaner", "work@inno.ru", xmlCorp, "password");
-        Task bag = new Task("мыть окна", "все окна", windowCleaner, director, java.time.LocalDate.parse("2017-11-10"), xmlCorp);
-        Task alert = new Task("Бу!","I need help!",windowCleaner, java.time.LocalDate.parse("2017-11-05"),xmlCorp);
-        saveCompany(xmlCorp);
-        logger.info(xmlCorp+" marshalling successful");
+//        Company xmlCorp = new Company("xmlCorp");
+//        Employee director = new Employee("Ivan Ivanovich", "Director", "a.zykov.stc@innopolis.ru", xmlCorp, "password");
+//        Employee windowCleaner = new Employee("Vasya", "Window Cleaner", "18june85@gmail.com", xmlCorp, "password");
+//        Task bag = new Task("мыть окна", "все окна", windowCleaner, director, java.time.LocalDate.parse("2017-11-10"), xmlCorp);
+//        saveCompany(xmlCorp);
+//        logger.info(xmlCorp+" marshalling successful");
 //
         /* из XML в SQL */
 //        Company xmlCorp = loadCompany();

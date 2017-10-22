@@ -9,10 +9,7 @@ import pojo.Employee;
 import pojo.Task;
 import pojo.TaskStatus;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -29,8 +26,10 @@ public class CompanyDAOimpl implements CompanyDAO {
     }
 
 
-    /** getAll() реализовано на JOIN, но
-     * можно еще поиграться с connection.setAutoCommit(true) */
+    /**
+     * getAll() реализовано на JOIN, но
+     * можно еще поиграться с connection.setAutoCommit(true)
+     */
     public Company getByName(String name) throws CompanyDAOException, TaskDAOimpl.TaskDAOException, EmployeeDAOimpl.EmployeeDAOException {
         Company com;
         try (Connection connection = manager.getConnection()) {
@@ -76,17 +75,44 @@ public class CompanyDAOimpl implements CompanyDAO {
                 if (!workers.contains(emp)) workers.add(emp);
             }
             if (resultSet.getInt("task_id") != 0) {
-                Task task = new Task(
-                        resultSet.getInt("task_id"),
-                        resultSet.getString("task_name"),
-                        resultSet.getString("description"),
-                        resultSet.getInt("executor"),
-                        resultSet.getInt("author"),
-                        resultSet.getDate("start_date").toLocalDate(),
-                        resultSet.getDate("close_date").toLocalDate(),
-                        resultSet.getDate("deadline").toLocalDate(),
-                        TaskStatus.valueOf(resultSet.getString("status")),
-                        resultSet.getString("company"));
+                Task task;
+                if (resultSet.getDate("close_date") != null) {
+                    task = new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("start_date").toLocalDate(),
+                            resultSet.getDate("close_date").toLocalDate(),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    );
+                } else if (resultSet.getDate("start_date") != null) {
+                    task = new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("start_date").toLocalDate(),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    );
+                } else {
+                    task = new Task(
+                            resultSet.getInt("task_id"),
+                            resultSet.getString("task_name"),
+                            resultSet.getString("description"),
+                            resultSet.getInt("executor"),
+                            resultSet.getInt("author"),
+                            resultSet.getDate("deadline").toLocalDate(),
+                            TaskStatus.valueOf(resultSet.getString("status")),
+                            resultSet.getString("company")
+                    );
+                }
                 if (!tasks.contains(task)) tasks.add(task);
             }
         }
@@ -109,7 +135,7 @@ public class CompanyDAOimpl implements CompanyDAO {
 
     /* пароли Set<Employee> шифруются при сохранении в БД */
     public void insertCompany(Company company) throws CompanyDAOException, TaskDAOimpl.TaskDAOException, EmployeeDAOimpl.EmployeeDAOException {
-        try (Connection connection = manager.getConnection()){
+        try (Connection connection = manager.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO umalog.public.companies" +
                             "(name, employee_count, task_count) VALUES(?, ?, ?)");
@@ -125,4 +151,20 @@ public class CompanyDAOimpl implements CompanyDAO {
         }
 
     }
+
+    @Override
+    public void updateCompany(Company company) throws CompanyDAOException {
+        try (Connection connection = manager.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE umalog.public.companies SET employee_count = ?, task_count = ? WHERE name = ?");
+            statement.setInt(1, company.getCurrentEmployeeIDCounter());
+            statement.setInt(2, company.getCurrentTaskIDCounter());
+            statement.setString(3, company.companyName);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            throw new CompanyDAOException();
+        }
+    }
+
 }

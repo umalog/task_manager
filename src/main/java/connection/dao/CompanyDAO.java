@@ -12,4 +12,6 @@ public interface CompanyDAO {
     void deleteAll() throws CompanyDAOException, EmployeeDAOimpl.EmployeeDAOException, TaskDAOimpl.TaskDAOException;
 
     void insertCompany(Company company) throws CompanyDAOException, TaskDAOimpl.TaskDAOException, EmployeeDAOimpl.EmployeeDAOException;
+
+    void updateCompany(Company company)throws CompanyDAOException;
 }

@@ -52,7 +52,6 @@
         <url-pattern>/assigned</url-pattern>
     </servlet-mapping>
 
-
     <servlet>
         <servlet-name>Create</servlet-name>
         <servlet-class>servlets.CreateTaskServlet</servlet-class>
@@ -60,6 +59,15 @@
     <servlet-mapping>
         <servlet-name>Create</servlet-name>
         <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Take</servlet-name>
+        <servlet-class>servlets.TakeTaskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Take</servlet-name>
+        <url-pattern>/take</url-pattern>
     </servlet-mapping>
 
 </web-app>

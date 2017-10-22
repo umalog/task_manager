@@ -21,12 +21,9 @@ public class CompletedTaskServlet extends HttpServlet {
         if (req.getSession().getAttribute("userID") != null) {
             int userID = (int) req.getSession().getAttribute("userID");
             Set<Task> myClosedTasks = completedTS.getMyClosedTasks(userID);
-
-            logger.info("не забыть обработать:  myClosedTasks==null в CompletedTaskServlet");
             req.setAttribute("myClosedTasks", myClosedTasks);
-
             req.getRequestDispatcher("/completedTasks.jsp").forward(req, resp);
-            //getServletContext().getRequestDispatcher("/").forward(req, resp);
+
 
         } else resp.sendRedirect("/team");
     }

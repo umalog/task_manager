@@ -22,7 +22,6 @@ public class AssignedTaskServlet extends HttpServlet {
         if (req.getSession().getAttribute("userID") != null) {
             int userID = (int) req.getSession().getAttribute("userID");
             Set<Task> myAssignedTasks = assignedTS.getMyAssignedTasks(userID);
-            logger.info("не забыть обработать:  myAssignedTasks==null в AssignedTaskServlet");
             req.setAttribute("myAssignedTasks", myAssignedTasks);
 
             req.getRequestDispatcher("/assignedTasks.jsp").forward(req, resp);
