@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 public class CreateTaskServlet extends HttpServlet {
-    CreateTaskService createTS = new CreateTaskService();
+    private CreateTaskService createTS = new CreateTaskService();
 
 
     @Override

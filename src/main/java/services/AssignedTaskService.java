@@ -17,6 +17,7 @@ public class AssignedTaskService {
             return taskDAO.getMyAssignedTasks(employeeID);
         } catch (TaskDAO.TaskDAOException e) {
             logger.error(e.getMessage());
+
         }
         return null;
     }
