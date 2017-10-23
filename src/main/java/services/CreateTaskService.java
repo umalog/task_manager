@@ -15,32 +15,29 @@ public class CreateTaskService {
     private static final Logger logger = Logger.getLogger(CreateTaskService.class);
     private static TaskDAO taskDAO = new TaskDAOimpl();
 
-    public Set<Employee> getFreeEmployers() {
-        try {
-            return employeeDAO.getFreeEmployers();
-        } catch (EmployeeDAOimpl.EmployeeDAOException e) {
-            logger.error(e.getMessage());
-        }
-        return null;
+    public Set<Employee> getFreeEmployers() throws EmployeeDAO.EmployeeDAOException {
+
+        return employeeDAO.getFreeEmployers();
+
     }
 
-    public void createThisTask(String taskName, String description, int executorID, int authorID, LocalDate deadline) {
-        try {
-            Employee author = employeeDAO.getEmployeeById(authorID);
-            Company company = companyDAO.getByName(author.getCompany());
-            Task task;
-            if (executorID == 0) {
-                task = new Task(taskName, description, author, deadline, company);
-            } else {
-                Employee executor = employeeDAO.getEmployeeById(executorID);
-                task = new Task(taskName, description, executor, author, deadline, company);
-            }
-            taskDAO.insertTask(task);
-            companyDAO.updateCompany(company);
-            employeeDAO.takeTask(task.getTaskID(),executorID);
+    public void createThisTask(String taskName, String description, int executorID, int authorID, LocalDate deadline) throws TaskDAO.TaskDAOException, EmployeeDAO.EmployeeDAOException, CompanyDAO.CompanyDAOException {
 
-        } catch (EmployeeDAOimpl.EmployeeDAOException | CompanyDAO.CompanyDAOException | TaskDAOimpl.TaskDAOException e) {
-            logger.error(e.getMessage());
+        Employee author = employeeDAO.getEmployeeById(authorID);
+        Company company = companyDAO.getByName(author.getCompany());
+        Task task;
+        if (executorID == 0) {
+            task = new Task(taskName, description, author, deadline, company);
+        } else {
+            Employee executor = employeeDAO.getEmployeeById(executorID);
+            task = new Task(taskName, description, executor, author, deadline, company);
+
+            SendMail.sendNotification(executor.geteMail(), taskName, description);
         }
+        taskDAO.insertTask(task);
+        companyDAO.updateCompany(company);
+        employeeDAO.takeTask(task.getTaskID(), executorID);
+
+
     }
 }

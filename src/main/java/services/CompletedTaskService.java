@@ -6,19 +6,18 @@ import org.apache.log4j.Logger;
 import pojo.Task;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 public class CompletedTaskService {
     private static TaskDAO taskDAO = new TaskDAOimpl();
     private static final Logger logger = Logger.getLogger(CompletedTaskService.class);
 
-    public Set<Task> getMyClosedTasks(int employeeID) {
+    public Set<Task> getMyClosedTasks(int employeeID) throws TaskDAO.TaskDAOException {
 
-        try {
-            return taskDAO.getMyClosedTasks(employeeID);
-        } catch (TaskDAO.TaskDAOException e) {
-            logger.error(e.getMessage());
-        }
-        return null;
+        return new TreeSet<>(taskDAO.getMyClosedTasks(employeeID));
+
+
+
     }
 
 }

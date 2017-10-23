@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         /* AuthorizationService */
         Employee employee;
         if ((employee = as.auth(login, password))!=null) {
-            logger.info(login+" – access Granted");
+            //logger.info(login+" – access Granted");
             req.getSession().setAttribute("isAuth", true);
             int x = employee.getEmployeeID();
             req.getSession().setAttribute("userID", x);

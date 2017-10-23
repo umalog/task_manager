@@ -1,5 +1,7 @@
 package servlets;
 
+import connection.dao.EmployeeDAO;
+import connection.dao.TaskDAO;
 import org.apache.log4j.Logger;
 import pojo.Employee;
 import pojo.Task;
@@ -21,10 +23,22 @@ public class MainServlet extends HttpServlet {
         int  userID = (int)req.getSession().getAttribute("userID");
         if (userID==0)resp.sendRedirect("/team");
 
-        Task currentTask = mainService.getCurrentTaskInUserID(userID);
+        Task currentTask = null;
+        try {
+            currentTask = mainService.getCurrentTaskInUserID(userID);
+        } catch (EmployeeDAO.EmployeeDAOException | TaskDAO.TaskDAOException e) {
+            logger.error(e.getStackTrace());
+            resp.sendError(500, e.getLocalizedMessage());
+        }
 
         if (currentTask != null) {
-            Employee author = mainService.getAuthor(currentTask);
+            Employee author = null;
+            try {
+                author = mainService.getAuthor(currentTask);
+            } catch (EmployeeDAO.EmployeeDAOException e) {
+                logger.error(e.getStackTrace());
+                resp.sendError(500, e.getLocalizedMessage());
+            }
 
             req.setAttribute("author", author);
             req.setAttribute("currentTask", currentTask);
@@ -43,7 +57,12 @@ public class MainServlet extends HttpServlet {
         logger.info("Закрываем Задачу!!! \"MainServlet.doPost()\"");
         int  userID = (int)req.getSession().getAttribute("userID");
         int taskID = Integer.valueOf(req.getParameter("taskID"));
-        mainService.closeTask(taskID, userID);
+        try {
+            mainService.closeTask(taskID, userID);
+        } catch (TaskDAO.TaskDAOException | EmployeeDAO.EmployeeDAOException e) {
+            logger.error(e.getStackTrace());
+            resp.sendError(500, e.getLocalizedMessage());
+        }
         resp.sendRedirect("/team/main");
 
     }

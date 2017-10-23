@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Task {
+public class Task implements Comparable<Task> {
     @XmlElement(required = true)
     private String company;
     @XmlElement(required = true)
@@ -48,7 +48,7 @@ public class Task {
 
     /* конструктор для БД2 */
     public Task(int id, String taskName, String description, int executor, int author,
-                LocalDate startDate,  LocalDate deadline, TaskStatus status, String company) {
+                LocalDate startDate, LocalDate deadline, TaskStatus status, String company) {
         this.taskID = id;
         this.taskName = taskName;
         this.description = description;
@@ -59,6 +59,7 @@ public class Task {
         this.status = status;
         this.company = company;
     }
+
     /* конструктор для БД3 */
     public Task(int id, String taskName, String description, int executor, int author,
                 LocalDate deadline, TaskStatus status, String company) {
@@ -225,5 +226,11 @@ public class Task {
                 ", closingDate=" + closingDate +
                 ", deadline=" + deadline +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Task o) {
+        return Integer.compare(taskID, o.getTaskID());
     }
 }

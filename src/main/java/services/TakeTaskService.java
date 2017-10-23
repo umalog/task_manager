@@ -15,26 +15,20 @@ public class TakeTaskService {
     private static EmployeeDAO employeeDAO = new EmployeeDAOimpl();
     private static final Logger logger = Logger.getLogger(TakeTaskService.class);
 
-    public Set<Task> getFreeTasks() {
-        try {
-            return taskDAO.getPausedTasks();
-        } catch (TaskDAO.TaskDAOException e) {
-            logger.error(e.getMessage());
-        }
-        return null;
+    public Set<Task> getFreeTasks() throws TaskDAO.TaskDAOException {
+
+        return taskDAO.getPausedTasks();
+
     }
 
-    public boolean updateTaskStatus(int executor, int taskId) {
+    public boolean updateTaskStatus(int executor, int taskId) throws EmployeeDAO.EmployeeDAOException, TaskDAO.TaskDAOException {
 
-        try {
-            if (employeeDAO.getEmployeeById(executor).getCurrentTask() == 0) {
-                taskDAO.udateTaskStatus(executor, taskId);
-                employeeDAO.takeTask(taskId, executor);
-                return true;
-            }
-        } catch (TaskDAO.TaskDAOException | EmployeeDAO.EmployeeDAOException e) {
-            e.printStackTrace();
-        }
-        return false;
+
+        if (employeeDAO.getEmployeeById(executor).getCurrentTask() == 0) {
+            taskDAO.udateTaskStatus(executor, taskId);
+            employeeDAO.takeTask(taskId, executor);
+            return true;
+        }else return false;
+
     }
 }

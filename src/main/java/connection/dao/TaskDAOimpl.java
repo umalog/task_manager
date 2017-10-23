@@ -259,7 +259,7 @@ public class TaskDAOimpl implements TaskDAO {
                     ("UPDATE umalog.public.task SET executor = ?, start_date = ?, status = ? WHERE task_id = ?");
             statement.setInt(1, executor);
             statement.setDate(2, Date.valueOf(LocalDate.now()));
-            statement.setString(3, "Closed");
+            statement.setString(3, "InWork");
             statement.setInt(4, taskId);
             statement.executeUpdate();
 

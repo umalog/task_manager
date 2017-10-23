@@ -9,7 +9,7 @@ public class CharsetFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
         encoding = config.getInitParameter("requestEncoding");
-        if (encoding == null) encoding = "UTF-8";
+        if (encoding == null) encoding = "cp1251";
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -19,7 +19,7 @@ public class CharsetFilter implements Filter {
         }
 
         response.setContentType("text/html; charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("cp1251");
 
         chain.doFilter(request, response);
     }

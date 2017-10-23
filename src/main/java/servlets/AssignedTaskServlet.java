@@ -1,5 +1,6 @@
 package servlets;
 
+import connection.dao.TaskDAO;
 import org.apache.log4j.Logger;
 import pojo.Task;
 import services.AssignedTaskService;
@@ -13,7 +14,7 @@ import java.util.Set;
 
 public class AssignedTaskServlet extends HttpServlet {
 
-    AssignedTaskService assignedTS = new AssignedTaskService();
+    private static AssignedTaskService assignedTS = new AssignedTaskService();
     private static final Logger logger = Logger.getLogger(AssignedTaskServlet.class);
 
 
@@ -21,12 +22,21 @@ public class AssignedTaskServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getSession().getAttribute("userID") != null) {
             int userID = (int) req.getSession().getAttribute("userID");
-            Set<Task> myAssignedTasks = assignedTS.getMyAssignedTasks(userID);
+            Set<Task> myAssignedTasks = null;
+            try {
+                myAssignedTasks = assignedTS.getMyAssignedTasks(userID);
+            } catch (TaskDAO.TaskDAOException e) {
+                logger.error(e.getStackTrace());
+                resp.sendError(500, e.getLocalizedMessage());
+            }
             req.setAttribute("myAssignedTasks", myAssignedTasks);
 
             req.getRequestDispatcher("/assignedTasks.jsp").forward(req, resp);
 
 
-        } else resp.sendRedirect("/team");
+        } else {
+            logger.info("кто-то лезет не туда: assignedTasks");
+            resp.sendRedirect("/team");
+        }
     }
 }
