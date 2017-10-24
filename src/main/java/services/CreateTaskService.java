@@ -32,7 +32,9 @@ public class CreateTaskService {
             Employee executor = employeeDAO.getEmployeeById(executorID);
             task = new Task(taskName, description, executor, author, deadline, company);
 
-            SendMail.sendNotification(executor.geteMail(), taskName, description);
+            new Thread(() ->
+            SendMail.sendNotification(executor.geteMail(), taskName, description)).start();
+
         }
         taskDAO.insertTask(task);
         companyDAO.updateCompany(company);

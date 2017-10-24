@@ -38,10 +38,10 @@ public class MainService {
 
         taskDAO.closeTask(taskID);
         employeeDAO.closeTask(EmployeeId);
-
         String mail = employeeDAO.getEmployeeById(taskDAO.getTask(taskID).getAuthor()).geteMail();
-        SendMail.sendForCloseTask(mail, taskID);
 
+        new Thread(() ->
+        SendMail.sendForCloseTask(mail, taskID)).start();
     }
 
 }

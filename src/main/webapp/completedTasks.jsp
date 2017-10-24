@@ -40,6 +40,7 @@
                             <td><c:out value="${task.taskID}"/></td>
                             <td><c:out value="${task.taskName}"/></td>
                             <td><c:out value="${task.author}"/></td>
+                            <%--<td><%= new CompletedTaskService().getAuthor(Integer.valueOf("${task.author}")) %></td>--%>
                             <td><c:out value="${task.closingDate}"/></td>
                         </tr>
                     </c:forEach>
